@@ -7,12 +7,12 @@ The goal of this lab is to collect Windows event logs, forward them to a Splunk 
 
 This project demonstrates practical experience with:
 
-• Security Information and Event Management (SIEM)
-• Windows log collection and forwarding
-• Threat detection using Splunk queries
-• Security monitoring dashboards
-• Attack simulation and investigation
-• Troubleshooting SIEM deployment issues
+* Security Information and Event Management (SIEM)
+* Windows log collection and forwarding
+* Threat detection using Splunk queries
+* Security monitoring dashboards
+* Attack simulation and investigation
+* Troubleshooting SIEM deployment issues
 
 # Lab Environment
 
@@ -38,11 +38,11 @@ This allows all machines to communicate internally within the lab.
 
 Steps to Create NAT Network
 
-• Open VirtualBox
-• Navigate to File → Tools → Network Manager
-• Select NAT Networks
-• Click Create
-• Configure the following settings
+* Open VirtualBox
+* Navigate to File → Tools → Network Manager
+* Select NAT Networks
+* Click Create
+* Configure the following settings
 
         | Setting      | Value           |
         | ------------ | --------------- |
@@ -82,14 +82,14 @@ Static IP address is asssigned to each of the systems
 
 # Technologies Used
 
-• Splunk Enterprise – SIEM platform for monitoring security events
-• Splunk Universal Forwarder – Sends logs from Windows to Splunk
-• Sysmon – Advanced Windows system monitoring
-• Ubuntu Server – Host system for Splunk SIEM
-• Windows 10 – Endpoint generating security logs
-• Kali Linux – Attack simulation environment
-• Nmap – Network scanning tool
-• VirtualBox – Virtualization platform
+* Splunk Enterprise – SIEM platform for monitoring security events
+* Splunk Universal Forwarder – Sends logs from Windows to Splunk
+* Sysmon – Advanced Windows system monitoring
+* Ubuntu Server – Host system for Splunk SIEM
+* Windows 10 – Endpoint generating security logs
+* Kali Linux – Attack simulation environment
+* Nmap – Network scanning tool
+* VirtualBox – Virtualization platform
 
 
 # System Requirement
@@ -153,10 +153,10 @@ inputs.conf Configuration
 
 Logs collected include:
 
-• Windows Security logs
-• Windows System logs
-• Windows Application logs
-• Sysmon logs
+* Windows Security logs
+* Windows System logs
+* Windows Application logs
+* Sysmon logs
 
 # Verifying Log Ingestion 
 
@@ -183,11 +183,11 @@ A monitoring dashboard was created using Splunk Dashboard Studio.
 
 The dashboard provides visualization of security activity including:
 
-• Authentication activity
-• Process execution
-• Network connections
-• Application events
-• Source IP activity
+* Authentication activity
+* Process execution
+* Network connections
+* Application events
+* Source IP activity
 
 # Dashboard Panels Creation 
 
@@ -246,7 +246,7 @@ During the lab setup several issues occurred and were resolved.
 
 These troubleshooting steps helped improve understanding of Splunk forwarding and SIEM configuration.
 
-1. PowerShell Unexpected Token Error
+PowerShell Unexpected Token Error
 
         When running Splunk CLI commands:
            "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
@@ -270,10 +270,10 @@ Enable port 9997
 
 Steps:
 
-• Go to Settings
-• Select Forwarding and Receiving
-• Click Configure Receiving
-• Add port 9997
+* Go to Settings
+* Select Forwarding and Receiving
+* Click Configure Receiving
+* Add port 9997
 
 # Missing inputs.conf File 
 This file is did not exist initially 
@@ -288,8 +288,8 @@ The dashboard initially displayed no events.
 
 Cause
 
-• Incorrect search query
-• Incorrect time range
+* Incorrect search query
+* Incorrect time range
 
 Correct search
 
@@ -317,13 +317,13 @@ Connectivity test command:
 
 This project demonstrates several cybersecurity skills.
 
-• SIEM deployment
-• Windows log monitoring
-• Sysmon configuration
-• Threat detection using Splunk
-• SOC dashboard creation
-• Network attack simulation
-• Troubleshooting SIEM environments
+* SIEM deployment
+* Windows log monitoring
+* Sysmon configuration
+* Threat detection using Splunk
+* SOC dashboard creation
+* Network attack simulation
+* Troubleshooting SIEM environments
 
 # Conclusion
 
