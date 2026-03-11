@@ -44,22 +44,22 @@ Steps to Create NAT Network
 • Click Create
 • Configure the following settings
 
-| Setting      | Value           |
-| ------------ | --------------- |
-| Network Name | SOC-Lab-Network |
-| Network CIDR | 192.168.30.0/24 |
-| DHCP         | Enabled         |
+        | Setting      | Value           |
+        | ------------ | --------------- |
+        | Network Name | SOC-Lab-Network |
+        | Network CIDR | 192.168.30.0/24 |
+        | DHCP         | Enabled         |
 
 Then attach each virtual machine to this NAT network.
 
 # IP Address Configuration
 Static IP address is asssigned to each of the systems 
 
-| Machine              | IP Address    |
-| -------------------- | ------------- |
-| Kali Linux           | 192.168.30.8  |
-| Windows 10           | 192.168.30.9  |
-| Ubuntu Splunk Server | 192.168.30.10 |
+        | Machine              | IP Address    |
+        | -------------------- | ------------- |
+        | Kali Linux           | 192.168.30.8  |
+        | Windows 10           | 192.168.30.9  |
+        | Ubuntu Splunk Server | 192.168.30.10 |
 
 # Network Architecture
 
@@ -94,19 +94,20 @@ Static IP address is asssigned to each of the systems
 
 # System Requirement
 
-| Resource       | Requirement       |
-| -------------- | ----------------- |
-| CPU            | Minimum 4 cores   |
-| RAM            | 16 GB recommended |
-| Storage        | 200 GB            |
-| Virtualization | Enabled           |
+        | Resource       | Requirement       |
+        | -------------- | ----------------- |
+        | CPU            | Minimum 4 cores   |
+        | RAM            | 16 GB recommended |
+        | Storage        | 200 GB            |
+        | Virtualization | Enabled           |
 
 virtual machines used
-| Machine              | RAM  | CPU     | Storage |
-| -------------------- | ---- | ------- | ------- |
-| Ubuntu Splunk Server | 8 GB | 2 cores | 80 GB   |
-| Windows Victim       | 4 GB | 2 cores | 60 GB   |
-| Kali Linux Attacker  | 4 GB | 2 cores | 40 GB   |
+
+        | Machine              | RAM  | CPU     | Storage |
+        | -------------------- | ---- | ------- | ------- |
+        | Ubuntu Splunk Server | 8 GB | 2 cores | 80 GB   |
+        | Windows Victim       | 4 GB | 2 cores | 60 GB   |
+        | Kali Linux Attacker  | 4 GB | 2 cores | 40 GB   |
 
 
 # Installing Splunk Entriprise 
@@ -230,13 +231,13 @@ This generates network connection logs which are captured by Sysmon and forwarde
 
 # Security Events Detected 
 
-| Event Type                 | Detection                   |
-| -------------------------- | --------------------------- |
-| Brute force login attempts | Failed login events         |
-| User authentication        | Successful login monitoring |
-| Port scanning              | Network activity monitoring |
-| Malicious processes        | Process creation monitoring |
-| Application failures       | Application log monitoring  |
+        | Event Type                 | Detection                   |
+        | -------------------------- | --------------------------- |
+        | Brute force login attempts | Failed login events         |
+        | User authentication        | Successful login monitoring |
+        | Port scanning              | Network activity monitoring |
+        | Malicious processes        | Process creation monitoring |
+        | Application failures       | Application log monitoring  |
 
 
 
@@ -279,3 +280,55 @@ This file is did not exist initially
 Location:
 
         C:\Program Files\SplunkUniversalForwarder\etc\system\local
+The file had to be created manually to define log sources.
+
+Logs Not Appearing in Splunk
+
+The dashboard initially displayed no events.
+
+Cause
+
+• Incorrect search query
+• Incorrect time range
+
+Correct search
+
+        index=wolfindex
+
+Incorrect Search Query Syntax
+
+Incorrect query used:
+
+        source="WinEventLog:*" index="wolfindex"
+
+Correct query:
+
+        index=wolfindex sourcetype="WinEventLog:Security"
+
+# Network Connectivity Issues
+
+Logs cannot be forwarded if the Splunk server is unreachable.
+
+Connectivity test command:
+
+        Test-NetConnection 192.168.30.10 -Port 9997     
+
+# Skills Demonstrated
+
+This project demonstrates several cybersecurity skills.
+
+• SIEM deployment
+• Windows log monitoring
+• Sysmon configuration
+• Threat detection using Splunk
+• SOC dashboard creation
+• Network attack simulation
+• Troubleshooting SIEM environments
+
+# Conclusion
+
+This SOC home lab demonstrates how Splunk SIEM can be used to monitor endpoint activity and detect security threats.
+
+By collecting Windows event logs, analyzing network activity, and visualizing security data through dashboards, this project simulates real-world SOC monitoring workflows.
+
+The lab provides valuable hands-on experience with SIEM platforms, security monitoring, and threat detection techniques used by SOC analysts.
