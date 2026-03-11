@@ -1,161 +1,135 @@
-SOC Home Lab – Splunk SIEM Security Monitoring Project
+# SOC Home Lab – Splunk SIEM Security Monitoring
 Project Overview
 
-This project demonstrates the creation of a Security Operations Center (SOC) home lab using Splunk Enterprise to simulate real-world security monitoring and log analysis. The lab collects logs from a Windows system, forwards them to a centralized SIEM platform, and visualizes security events through a monitoring dashboard.
+This project demonstrates the implementation of a Security Operations Center (SOC) home lab using Splunk Enterprise to simulate real-world security monitoring and log analysis.
 
-The primary objective of this project is to gain practical experience with:
+The goal of this lab is to collect Windows event logs, forward them to a Splunk SIEM server, and visualize security events through a monitoring dashboard.
 
-Security Information and Event Management (SIEM)
+This project demonstrates practical experience with:
 
-Log collection and forwarding
+• Security Information and Event Management (SIEM)
+• Windows log collection and forwarding
+• Threat detection using Splunk queries
+• Security monitoring dashboards
+• Attack simulation and investigation
+• Troubleshooting SIEM deployment issues
 
-Threat detection using Windows event logs
+# Lab Environment
 
-Security monitoring dashboards
+The SOC lab environment consists of three virtual machines running inside VirtualBox.
 
-Attack simulation and investigation
-
-The environment consists of three virtual machines that simulate a small SOC monitoring infrastructure.
-
-Machine	Role
-Ubuntu Server	Splunk Enterprise SIEM
-Windows 10	Victim system generating logs
-Kali Linux	Attacker machine used for testing
-
-All logs generated from the Windows machine are forwarded to Splunk and stored in the index:
+Machine          |      Role
+Ubuntu Server	 |      Splunk Enterprise SIEM
+Windows 10	 |      Victim machine generating logs
+Kali Linux	 |      Attacker machine used for testing
+        
+All logs generated from the Windows machine are sent to Splunk and stored in the index:
 
 wolfindex
 
-Virtual Network Configuration (VirtualBox NAT Network)
+# Virtual Network Configuration
 
-To allow communication between the virtual machines, a NAT Network was created in VirtualBox.
+A NAT Network was created in VirtualBox to allow communication between all virtual machines.
 
-The network was configured with the following address range:
-
+Network Range
 192.168.30.0/24
 
-This allows all machines in the lab environment to communicate with each other while remaining isolated from the host network.
+This allows all machines to communicate internally within the lab.
 
-Steps to Create NAT Network in VirtualBox
+Steps to Create NAT Network
 
-Open VirtualBox
+• Open VirtualBox
+• Navigate to File → Tools → Network Manager
+• Select NAT Networks
+• Click Create
+• Configure the following settings
 
-Navigate to File → Tools → Network Manager
+| Setting      | Value           |
+| ------------ | --------------- |
+| Network Name | SOC-Lab-Network |
+| Network CIDR | 192.168.30.0/24 |
+| DHCP         | Enabled         |
 
-Select NAT Networks
+Then attach each virtual machine to this NAT network.
 
-Click Create
+# IP Address Configuration
+Static IP address is asssigned to each of the systems 
 
-Configure the network settings.
+| Machine              | IP Address    |
+| -------------------- | ------------- |
+| Kali Linux           | 192.168.30.8  |
+| Windows 10           | 192.168.30.9  |
+| Ubuntu Splunk Server | 192.168.30.10 |
 
-Setting	Value
-Network Name	SOC-Lab-Network
-Network CIDR	192.168.30.0/24
-DHCP	Enabled
+# Network Architecture
 
-Attach each virtual machine to this NAT network.
-
-IP Address Configuration
-
-The following static IP addresses were assigned to each system.
-
-System	IP Address
-Kali Linux (Attacker)	192.168.30.8
-Windows 10 (Victim)	192.168.30.9
-Ubuntu Splunk Server	192.168.30.10
-Network Communication Flow
 Kali Linux (192.168.30.8)
-        |
-        | Attack simulation (Nmap)
-        |
+      |
+      | Attack simulation
+      | Nmap scan
+      |
 Windows 10 (192.168.30.9)
-        |
-        | Windows logs + Sysmon logs
-        | Splunk Universal Forwarder
-        |
-Ubuntu Splunk Server (192.168.30.10)
-        |
-        | Splunk SIEM Analysis
-Lab Architecture
+      |
+      | Windows Event Logs
+      | Sysmon Logs
+      | Splunk Universal Forwarder
+      |
+Ubuntu Server (192.168.30.10)
+      |
+      | Splunk Enterprise SIEM
+      | Security Monitoring Dashboard
 
-The architecture of this SOC lab replicates how enterprise security monitoring systems collect and analyze endpoint telemetry.
 
-                +---------------------+
-                |     Kali Linux      |
-                |   192.168.30.8      |
-                |     (Attacker)      |
-                +----------+----------+
-                           |
-                           | Attack Simulation
-                           | Nmap Scanning
-                           |
-                +----------v----------+
-                |      Windows 10     |
-                |   192.168.30.9      |
-                | Sysmon + Forwarder  |
-                +----------+----------+
-                           |
-                           | Windows Event Logs
-                           | Splunk Forwarder
-                           |
-                +----------v----------+
-                |   Ubuntu Server     |
-                |   192.168.30.10     |
-                | Splunk Enterprise   |
-                |       (SIEM)        |
-                +---------------------+
-Technologies Used
-Technology	Purpose
-Splunk Enterprise	Security monitoring and log analysis
-Splunk Universal Forwarder	Sends logs from Windows to Splunk
-Sysmon	Advanced Windows event logging
-Ubuntu Server	Host system for Splunk SIEM
-Windows 10	Endpoint generating event logs
-Kali Linux	Attack simulation platform
-Nmap	Network scanning tool
-VirtualBox	Virtualization environment
-System Requirements
+# Technologies Used
 
-Recommended system resources for running the lab environment.
+• Splunk Enterprise – SIEM platform for monitoring security events
+• Splunk Universal Forwarder – Sends logs from Windows to Splunk
+• Sysmon – Advanced Windows system monitoring
+• Ubuntu Server – Host system for Splunk SIEM
+• Windows 10 – Endpoint generating security logs
+• Kali Linux – Attack simulation environment
+• Nmap – Network scanning tool
+• VirtualBox – Virtualization platform
 
-Resource	Requirement
-CPU	Minimum 4 cores
-RAM	16 GB recommended
-Disk Space	200 GB
-Virtualization	Enabled in BIOS
 
-Virtual machines used:
+# System Requirement
 
-Machine	RAM	CPU	Storage
-Ubuntu Splunk Server	8 GB	2 cores	80 GB
-Windows Victim	4 GB	2 cores	60 GB
-Kali Linux Attacker	4 GB	2 cores	40 GB
-Installing Splunk Enterprise
+| Resource       | Requirement       |
+| -------------- | ----------------- |
+| CPU            | Minimum 4 cores   |
+| RAM            | 16 GB recommended |
+| Storage        | 200 GB            |
+| Virtualization | Enabled           |
 
-Splunk Enterprise was installed on the Ubuntu server.
+virtual machines used
+| Machine              | RAM  | CPU     | Storage |
+| -------------------- | ---- | ------- | ------- |
+| Ubuntu Splunk Server | 8 GB | 2 cores | 80 GB   |
+| Windows Victim       | 4 GB | 2 cores | 60 GB   |
+| Kali Linux Attacker  | 4 GB | 2 cores | 40 GB   |
 
-Installation command:
 
-sudo dpkg -i splunk*.deb
+# Installing Splunk Entriprise 
+Splunk entriprise was installed on the ubuntu server.
 
-Start the Splunk service:
+Install Splunk 
 
-sudo /opt/splunk/bin/splunk start
+* After download the SPLUNK run the command
+  sudo dpkg -i splunk*.deb
+* Start Splunk
+  sudo /opt/splunk/bin/splunk start
+* Access splunk web server
+  http://192.168.30.10:8000
 
-Splunk web interface:
 
-http://192.168.30.10:8000
-Configuring Windows Log Forwarding
-
+# Configuring Windows Log Forwarding 
 The Splunk Universal Forwarder was installed on the Windows machine to send logs to the Splunk server.
 
-Logs are forwarded to the Splunk server using port:
+Forwarding port used:
 
 9997
 
-Configuration file:
-
-inputs.conf
+inputs.conf Configuration
 
 [WinEventLog://Application]
 disabled = 0
@@ -172,223 +146,92 @@ index = wolfindex
 [WinEventLog://Microsoft-Windows-Sysmon/Operational]
 disabled = 0
 index = wolfindex
-Verifying Log Ingestion
 
-To verify logs were successfully received by Splunk:
+Logs collected include:
 
-index=wolfindex
+• Windows Security logs
+• Windows System logs
+• Windows Application logs
+• Sysmon logs
 
-Other useful searches:
+# Verifying Log Ingestion 
 
-Windows security logs
+To verify the logs are arriving in the Splunk 
+// index=wolfindex
 
-index=wolfindex sourcetype="WinEventLog:Security"
+Security logs - index=wolfindex sourcetype="WinEventLog:Security"
 
-Application logs
+Application logs - index=wolfindex sourcetype="WinEventLog:Application"
 
-index=wolfindex sourcetype="WinEventLog:Application"
+Sysmon logs - index=wolfindex sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
 
-Sysmon logs
 
-index=wolfindex sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
-Creating the SOC Dashboard
+# SOC Monitoring Dashboard 
 
-The monitoring dashboard was created using Splunk Dashboard Studio.
+A monitoring dashboard was created using Splunk Dashboard Studio.
 
-The dashboard visualizes security activity such as:
+The dashboard provides visualization of security activity including:
 
-Authentication events
+• Authentication activity
+• Process execution
+• Network connections
+• Application events
+• Source IP activity
 
-Process execution
+# Dashboard Panels Creation 
 
-Network connections
-
-Application events
-
-Source IP activity
-
-Dashboard Panels
 Failed Login Attempts
-
-Detects brute-force login attempts.
-
-Query:
+Detects possible brute-force attacks.
+Used visualization barchart 
 
 index=wolfindex EventCode=4625
 | stats count by Account_Name
 
-Visualization: Bar chart
-
-Successful Logins
-
-Query:
-
+Successful Logins 
 index=wolfindex EventCode=4624
 | stats count by Account_Name
 
-Visualization: Pie chart
-
 Process Creation Monitoring
-
-Query:
-
 index=wolfindex EventCode=1
 | stats count by Image
 | sort -count
 
-Visualization: Column chart
-
 Network Activity Monitoring
-
-Query:
-
 index=wolfindex EventCode=3
 | stats count by SourceIp DestinationIp DestinationPort
 
-Visualization: Table
-
-Top Source IP Activity
-
-Query:
-
-index=wolfindex
-| stats count by SourceIp
-| sort -count
-
-Visualization: Bar chart
-
 Application Event Monitoring
-
-Query:
-
 index=wolfindex sourcetype="WinEventLog:Application"
 | stats count by SourceName
 | sort -count
 
-Visualization: Bar chart
 
-Attack Simulation
+# Attack Simulation 
 
-To generate security events, attacks were simulated using the Kali Linux machine.
-
-Example Nmap scan:
+Security events were generated by performing attacks from the Kali Linux machine.
+Example Nmap Scan
 
 nmap -sS 192.168.30.9
+This generates network connection logs which are captured by Sysmon and forwarded to Splunk.
 
-This scan generates network connection logs which are captured by Sysmon and forwarded to Splunk.
+# Security Events Detected 
 
-Security Events Detected
-Event Type	Detection
-Brute force attempts	Failed login events
-Authentication activity	Successful login events
-Port scanning	Network connection logs
-Suspicious processes	Process creation logs
-Application errors	Application log monitoring
-Errors Encountered During Lab Setup
+| Event Type                 | Detection                   |
+| -------------------------- | --------------------------- |
+| Brute force login attempts | Failed login events         |
+| User authentication        | Successful login monitoring |
+| Port scanning              | Network activity monitoring |
+| Malicious processes        | Process creation monitoring |
+| Application failures       | Application log monitoring  |
 
-During the setup process several configuration issues were encountered and resolved.
 
-PowerShell “Unexpected Token” Error
 
-When running Splunk CLI commands:
+# Errors Encountered During Lab Setup 
+During the lab setup several issues occurred and were resolved.
 
-"C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
+These troubleshooting steps helped improve understanding of Splunk forwarding and SIEM configuration.
 
-PowerShell returned a syntax error due to spaces in the file path.
+1. PowerShell Unexpected Token Error
 
-Solution:
-
-& "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
-Forwarder Showing “Configured but Inactive”
-
-The forward server appeared as configured but inactive.
-
-Cause:
-
-Receiving port was not enabled on the Splunk server.
-
-Solution:
-
-Enable port 9997 under:
-
-Settings → Forwarding and Receiving → Configure Receiving
-
-Missing inputs.conf File
-
-The inputs.conf file did not initially exist.
-
-Location:
-
-C:\Program Files\SplunkUniversalForwarder\etc\system\local
-
-It had to be created manually to specify which logs should be collected.
-
-Logs Not Appearing in Splunk
-
-The dashboard initially displayed zero events.
-
-Cause:
-
-Incorrect search query and time range.
-
-Correct search:
-
-index=wolfindex
-Incorrect Search Query Syntax
-
-Incorrect query:
-
-source="WinEventLog:*" index="wolfindex"
-
-Correct query:
-
-index=wolfindex sourcetype="WinEventLog:Security"
-Network Connectivity Issues
-
-Connectivity between systems must be verified.
-
-Command used:
-
-Test-NetConnection 192.168.30.10 -Port 9997
-
-Ensuring port 9997 is open resolves this issue.
-
-Skills Demonstrated
-
-This project demonstrates several key SOC analyst skills:
-
-SIEM deployment
-
-Windows log collection
-
-Sysmon monitoring
-
-Security event analysis
-
-Threat detection using Splunk queries
-
-Dashboard development
-
-Attack simulation
-
-Troubleshooting SIEM environments
-
-Future Improvements
-
-Potential improvements include:
-
-Implementing automated alerts
-
-MITRE ATT&CK detection mapping
-
-PowerShell attack detection
-
-Additional endpoint log sources
-
-Advanced threat hunting queries
-
-Conclusion
-
-This SOC home lab demonstrates how Splunk SIEM can be used to monitor endpoint activity and detect potential security threats.
-
-By collecting Windows event logs, analyzing network behavior, and visualizing security events through dashboards, this project simulates real-world SOC monitoring workflows.
+        When running Splunk CLI commands:
+           "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
