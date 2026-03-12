@@ -1,5 +1,5 @@
 # SOC Home Lab – Splunk SIEM Security Monitoring
-Project Overview
+## Project Overview
 
 This project demonstrates the implementation of a Security Operations Center (SOC) home lab using Splunk Enterprise to simulate real-world security monitoring and log analysis.
 
